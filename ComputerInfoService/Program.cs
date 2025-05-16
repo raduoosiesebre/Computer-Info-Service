@@ -8,12 +8,24 @@ namespace ComputerInfoService
     {
         static void Main(string[] args)
         {
+
+            if (args.Length > 0 && args[0].Equals("console", StringComparison.OrdinalIgnoreCase))
+            {
+                // console mode to show the data of the computer
+                string computerName = Environment.MachineName;
+                string osInfo = $"{Environment.OSVersion} (64-bit: {Environment.Is64BitOperatingSystem})";
+                Console.WriteLine($"Computer Name: {computerName}");
+                Console.WriteLine($"OS Info: {osInfo}");
+                Console.WriteLine("Press enter to exit...");
+                Console.ReadLine();
+                return;
+            }
 #if DEBUG
             // console mode for debugging
             var service = new ComputerInfoService();
-            Console.writeLine("Starting service in debug mode...");
+            Console.WriteLine("Starting service in debug mode...");
             service.OnDebug();
-            Console.writeLine("Press enter to exit...");
+            Console.WriteLine("Press enter to exit...");
             Console.ReadLine();
             service.Stop();
 #else
